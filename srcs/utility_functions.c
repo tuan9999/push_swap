@@ -6,13 +6,23 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:42 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/23 10:51:56 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/05 10:00:56 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/stack.h"
 #include "../includes/utility_functions.h"
+#include <stdio.h>
+
+int is_sorted(int *stack, int size) {
+	while (size > 0) {
+		if (stack[size] > stack[size - 1])
+			return 0;
+		size--;
+	}
+	return 1;
+}
 
 int		*reallocate_array(int **array, int size) {
 	int *return_array;
@@ -26,8 +36,17 @@ int		*reallocate_array(int **array, int size) {
 		return_array[i] = (*array)[i];
 		i++;
 	}
-	free(array);
+	free(*array);
 	return return_array;
+}
+
+int		is_int_overflow(char *str) {
+	long value;
+
+	value = ft_atol(str);
+	if (value > INT32_MAX || value < INT32_MIN)
+		return (1);
+	return (0);
 }
 
 int 	push_args_to_stack(int **stack, int *top, char **argument_list, int argument_count) {
@@ -37,6 +56,9 @@ int 	push_args_to_stack(int **stack, int *top, char **argument_list, int argumen
 	i = argument_count - 1;
 	while (i != 0) {
 		num = ft_atoi(argument_list[i]);
+		if (!ft_isdigit(argument_list[i][0]) || is_int_overflow(argument_list[i])) {
+			return (1);
+		}
 		if (is_in(*stack, *top, num))
 			return (1);
 		push(stack, top, num);
@@ -85,6 +107,9 @@ void	reverse_elements_in_array(int **array, int size) {
 
 	i = size - 1;
 	j = 0;
+	for (int i = 0; i < size; i++) {
+		printf("Arr = %d\n", (*array)[i]);
+	}
 	while (i >= 0) {
 		temp_array[j] = (*array)[i];
 		i--;

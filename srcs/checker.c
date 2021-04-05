@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 16:34:50 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/23 10:42:25 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/03/29 17:27:15 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void await_instruction_loop(int **stack_a, int **stack_b, int *top_a) {
 		else if (ft_strncmp("rrr\0", buffer, 3) == 0)
 			reverse_rotate_both(stack_a, stack_b, *top_a, top_b);
 		else if (ft_strncmp("exit\0", buffer, 4) == 0) {
-			ft_putstr_fd("Exiting.\n", 1);
+			ft_putstr_fd("Exiting.\n", STDOUT);
 			return ;
 		}
 		else
@@ -54,6 +54,11 @@ void await_instruction_loop(int **stack_a, int **stack_b, int *top_a) {
 
 		print_stack(*stack_a, *stack_b, *top_a, top_b);
 	}
+	if (is_sorted(*stack_a, *top_a) && top_b == 0)
+		ft_putstr_fd("OK\n", STDOUT);
+	else
+		ft_putstr_fd("KO\n", STDOUT);
+
 }
 
 int main(int argc, char **argv) {
@@ -63,7 +68,7 @@ int main(int argc, char **argv) {
 
 	top = 0;
 	if (argc <= 1)
-		return (exit_error("Error\n"));
+		return (exit_error(""));
 	
 	stack_a = init_stack(argc);
 	stack_b = init_stack(argc);
