@@ -6,14 +6,14 @@
 #    By: tuperera <tuperera@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/08 16:36:40 by tuperera      #+#    #+#                  #
-#    Updated: 2021/03/22 10:22:12 by tuperera      ########   odam.nl          #
+#    Updated: 2021/04/05 11:36:38 by tuperera      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = push_swap
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra
 
 FILES = stack \
 		push_instruction_set \

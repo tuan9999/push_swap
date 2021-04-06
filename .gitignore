@@ -1,4 +1,5 @@
 .vscode
+.DS_Store
 push_swap.dSYM
 checker.dSYM
 push_swap

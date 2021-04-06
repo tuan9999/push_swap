@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:58 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/29 11:31:02 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/05 13:08:27 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # define STDOUT 1
 # define STACK_A 2
 # define STACK_B 3
+# define MIN_ARRAY_SIZE 10
 
-int		is_sorted(int *stack, int size);
+int		is_sorted_ascending(int *stack, int size);
+int 	is_sorted_descending(int *stack, int size);
 int		*reallocate_array(int **array, int size);
 int		push_args_to_stack(int **stack_a, int *top, char **argument_list, int argument_count);
 int		is_in(int *stack, int top, int num);

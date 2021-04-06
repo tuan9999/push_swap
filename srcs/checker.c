@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 16:34:50 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/29 17:27:15 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/05 13:15:14 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void await_instruction_loop(int **stack_a, int **stack_b, int *top_a) {
 
 		print_stack(*stack_a, *stack_b, *top_a, top_b);
 	}
-	if (is_sorted(*stack_a, *top_a) && top_b == 0)
+	if (is_sorted_ascending(*stack_a, *top_a) && top_b == 0)
 		ft_putstr_fd("OK\n", STDOUT);
 	else
 		ft_putstr_fd("KO\n", STDOUT);
