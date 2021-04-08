@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:42 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/06 12:46:17 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/08 12:55:49 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,33 @@
 #include "../includes/stack.h"
 #include "../includes/utility_functions.h"
 #include <stdio.h>
+
+int check_validity_of_sorted_val_number(int *stack, int size, int count) {
+	int i;
+
+	i = count;
+	while (i < size) {
+		if (stack[i] > stack[count]) {
+			count--;
+			i = count;
+		}
+		i++;
+	}
+	return (count < 0) ? 0 : count;
+}
+
+int number_of_sorted_values(int *stack, int size) {
+	int count;
+
+	count = 1;
+	while (count < size) {
+		if (stack[count] > stack[count - 1]) {
+			return check_validity_of_sorted_val_number(stack, size, count - 1);
+		}
+		count++;
+	}
+	return count;
+}
 
 int is_sorted_ascending(int *stack, int size) {
 	while (size > 0) {

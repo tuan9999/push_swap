@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:58 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/05 13:08:27 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/08 10:08:46 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define STACK_B 3
 # define MIN_ARRAY_SIZE 10
 
+int 	number_of_sorted_values(int *stack, int size);
 int		is_sorted_ascending(int *stack, int size);
 int 	is_sorted_descending(int *stack, int size);
 int		*reallocate_array(int **array, int size);
