@@ -6,14 +6,11 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 17:08:46 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/23 10:43:18 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:34:13 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/stack.h"
-#include "../includes/utility_functions.h"
-#include "../libft/libft.h"
-#include <stdio.h>
 
 int		*init_stack(int size) {
 	int *stack;

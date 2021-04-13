@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 16:34:54 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/12 13:27:29 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:21:56 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../includes/utility_functions.h"
 #include "../libft/libft.h"
 #include "../includes/merge_sort.h"
+#define DEBUG 0
 
 int get_middle_value(int *array, int arr_size) {
 	int middle_index;
@@ -26,13 +27,17 @@ int get_middle_value(int *array, int arr_size) {
 	middle_index = arr_size / 2;
 	temp_array = create_array(arr_size);
 	copy_data_to_temp_array(&temp_array, array, 0, arr_size);
+#if DEBUG
 	for(int i = 0; i < arr_size; i++) {
 		printf("%d ", array[i]);
 	}
+#endif
     merge_sort(temp_array, 0, arr_size - 1);
  
 	middle_value = temp_array[middle_index];
+#if DEBUG
 	printf("\n*********\nmiddle val = %d\n*********\n", middle_value);
+#endif
 	free(temp_array);
 	return middle_value;
 }
@@ -126,11 +131,15 @@ void sort_stack_a_to_b(int **chunk_values, int **stack_a, int **stack_b, int *to
 	chunk_index = 0;
 	
 	sorted_value_count = number_of_sorted_values(*stack_a, *top_a - 1);
+#if DEBUG
 	printf("SORTED VAL COUNT == %d\n", sorted_value_count);
+#endif
 	while (*top_a > sorted_value_count && is_sorted_ascending(*stack_a, *top_a - 1) == 0) {
 		if ((*chunk_values)[chunk_index] > 0) {
 			element_list_size = (*chunk_values)[chunk_index];
+#if DEBUG
 			printf("ELEMENT LIST SIZE == %d\n", element_list_size);
+#endif
 		}
 		else
 			element_list_size = *top_a;
@@ -148,15 +157,21 @@ void sort_stack_a_to_b(int **chunk_values, int **stack_a, int **stack_b, int *to
 					chunk++;
 					elements_seen++;
 				}
+#if DEBUG
 				print_stack(*stack_a, *stack_b, *top_a, *top_b);
+#endif
 			}
 		}
 		new_chunk_values[new_chunk_index] = chunk;
+#if DEBUG
 		printf("Chunk = %d\n", chunk);
+#endif
 		new_chunk_index++;
 		if (new_chunk_index % 10 == 0)
 			reallocate_array(&new_chunk_values, new_chunk_index);
+#if DEBUG
 		sleep(3);
+#endif
 	}
 	check_top_element_order(stack_a, top_a, 'a');
 	if ((*chunk_values)[0])
@@ -216,11 +231,15 @@ void sort_stack_b_to_a(int **chunk_values, int **stack_a, int **stack_b, int *to
 			new_chunk_size = 0;
 		check_for_reverse_rotations(chunk_index, &rotations, &chunk_size, chunk_values, stack_b, top_b);
 		
+#if DEBUG
 		printf("Chunk size in B = %d\n", chunk_size);
+#endif
 		middle_value = get_middle_value((*stack_b) + (*top_b - chunk_size), chunk_size);
 		
 		new_chunk_size += check_for_single_and_double_chunk_size(&chunk_size, stack_a, stack_b, top_a, top_b);
+#if DEBUG
 		print_stack(*stack_a, *stack_b, *top_a, *top_b);
+#endif
 		
 		elements_seen = 0;
 		while (elements_seen < chunk_size) {
@@ -253,7 +272,9 @@ void sort_stack_b_to_a(int **chunk_values, int **stack_a, int **stack_b, int *to
 		if (chunk_size == 0) {
 			chunk_index++;
 		}
+#if DEBUG
 		sleep(3);
+#endif
 	}
 	free(*chunk_values);
 	reverse_elements_in_array(&new_chunk_values, new_chunk_index);
@@ -267,17 +288,25 @@ void sort_stack(int **stack_a, int **stack_b, int *top_a) {
 	top_b = 0;
 	chunk_values = create_array(MIN_ARRAY_SIZE);
 	while (!is_sorted_ascending(*stack_a, *top_a - 1)) {
+#if DEBUG
 		printf("******************************************** AAAAAAAAAAAAAAAAA ************************************************\n");
+#endif
 		sort_stack_a_to_b(&chunk_values, stack_a, stack_b, top_a, &top_b);
+		#if DEBUG
 		print_stack(*stack_a, *stack_b, *top_a, top_b);
+		#endif
+#if DEBUG
 		for (int i = 0; i < 10; i++) {
 			printf("Chunk values for A = %d\n", chunk_values[i]);
 		}
 		printf("******************************************** BBBBBBBBBBBBBBBBB ************************************************\n");
+#endif
 		sort_stack_b_to_a(&chunk_values, stack_a, stack_b, top_a, &top_b);
+#if DEBUG
 		for (int i = 0; i < 10; i++) {
 			printf("Chunk values for B = %d\n", chunk_values[i]);
 		}
+#endif
 	}
 }
 
@@ -295,7 +324,9 @@ int main(int argc, char **argv) {
 	
 	if (push_args_to_stack(&stack_a, &top, argv, argc))
 		return (exit_error("Error\n"));
+#if DEBUG
 	print_stack(stack_a, stack_b, top, -1);
+#endif
 	sort_stack(&stack_a, &stack_b, &top);
 
 	free(stack_a);

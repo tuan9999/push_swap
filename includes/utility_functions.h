@@ -6,12 +6,16 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:58 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/08 10:08:46 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:26:00 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILITY_FUNCTIONS_H
 # define UTILITY_FUNCTIONS_H
+# include <stdio.h>
+# include <stdint.h>
+# include "../libft/libft.h"
+# include "../includes/stack.h"
 # define STDIN 0
 # define STDOUT 1
 # define STACK_A 2

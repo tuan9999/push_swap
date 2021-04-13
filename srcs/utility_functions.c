@@ -6,14 +6,11 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:42 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/08 12:55:49 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:35:21 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "../includes/stack.h"
 #include "../includes/utility_functions.h"
-#include <stdio.h>
 
 int check_validity_of_sorted_val_number(int *stack, int size, int count) {
 	int i;
@@ -116,24 +113,51 @@ int		is_in(int *stack, int top, int num) {
 	return (0);
 }
 
+int		count_digits(int n) {
+	int digit_count = 0;
+	while (n) {
+		n /= 10;
+		digit_count++;
+	}
+	return digit_count;
+}
+
+void	print_spaces(int n) {
+	while (n > 0) {
+		ft_putstr_fd(" ", 1);
+		n--;
+	}
+}
+
+void	print_number_with_spaces(int n) {
+	int digit_count;
+
+	digit_count = 0;
+	ft_putnbr_fd(n, STDOUT);
+	digit_count = count_digits(n);
+	digit_count = 3 - digit_count;
+	print_spaces(digit_count);
+} 
+
 void 	print_stack(int *stack_a, int *stack_b, int top_a, int top_b) {
+	
 	ft_putstr_fd("-------------------------------------------------------------\n", 1);
 	while (top_a > 0 || top_b > 0) {
 		if (top_a > 0) {
-			ft_putnbr_fd(stack_a[top_a - 1], 1);
+			print_number_with_spaces(stack_a[top_a - 1]);
 			pop(&stack_a, &top_a);
 		}
 		else
-			ft_putstr_fd(" ", 1);
-		ft_putstr_fd(" ", 1);
+			ft_putstr_fd("   ", STDOUT);
+		ft_putstr_fd(" ", STDOUT);
 		if (top_b > 0) {
-			ft_putnbr_fd(stack_b[top_b - 1], 1);
+			ft_putnbr_fd(stack_b[top_b - 1], STDOUT);
 			pop(&stack_b, &top_b);
 		}
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", STDOUT);
 	}
-	ft_putstr_fd("- -\n", 1);
-	ft_putstr_fd("a b\n", 1);
+	ft_putstr_fd("--- ---\n", 1);
+	ft_putstr_fd(" a   b \n", 1);
 	ft_putstr_fd("-------------------------------------------------------------\n", 1);
 }
 

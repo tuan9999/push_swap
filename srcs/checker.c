@@ -6,16 +6,11 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 16:34:50 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/05 13:15:14 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:33:36 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
-#include "../get_next_line/get_next_line.h"
-#include "../includes/stack.h"
-#include "../includes/instruction_set.h"
-#include "../includes/utility_functions.h"
-#include "../libft/libft.h"
 
 void await_instruction_loop(int **stack_a, int **stack_b, int *top_a) {
 	char *buffer;

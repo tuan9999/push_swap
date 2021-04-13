@@ -6,12 +6,11 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/19 15:25:24 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/03/28 17:07:54 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:33:51 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/merge_sort.h"
-#include "../includes/utility_functions.h"
 
 void copy_data_to_temp_array(int **temp_array, int *array, int starting_index, int ending_index) {
 	int i = 0;
