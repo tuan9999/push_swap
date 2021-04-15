@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/12 17:05:42 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/13 15:35:21 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/15 12:16:05 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int check_validity_of_sorted_val_number(int *stack, int size, int count) {
 	int i;
 
 	i = count;
-	while (i < size) {
+	while (i < size && count > 0) {
 		if (stack[i] > stack[count]) {
 			count--;
 			i = count;
 		}
 		i++;
 	}
-	return (count < 0) ? 0 : count;
+	return count;
 }
 
 int number_of_sorted_values(int *stack, int size) {
@@ -58,14 +58,15 @@ int is_sorted_descending(int *stack, int size) {
 	return 1;
 }
 
-int		*reallocate_array(int **array, int size) {
+int		*reallocate_array(int **array, int size, int realloc_amount) {
 	int *return_array;
 	int i;
 
-	return_array = (int *)malloc(sizeof(int) * size + 10);
+	return_array = (int *)malloc(sizeof(int) * (size + realloc_amount));
 	if (!return_array)
 		exit_error("Malloc failed\n");
 	i = 0;
+	ft_memset(return_array, 0, size + realloc_amount);
 	while (i < size) {
 		return_array[i] = (*array)[i];
 		i++;

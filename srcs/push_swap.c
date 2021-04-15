@@ -6,17 +6,11 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/08 16:34:54 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/13 15:21:56 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/15 12:14:25 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
-#include "../get_next_line/get_next_line.h"
-#include "../includes/stack.h"
-#include "../includes/instruction_set.h"
-#include "../includes/utility_functions.h"
-#include "../libft/libft.h"
-#include "../includes/merge_sort.h"
+#include "../includes/push_swap.h"
 #define DEBUG 0
 
 int get_middle_value(int *array, int arr_size) {
@@ -116,6 +110,16 @@ void handle_small_chunk_sizes(int *element_list_size, int *chunk, int **stack_a,
 	}
 }
 
+void copy_elements(int **dst_array, int *src_array, int size) {
+	int i;
+
+	i = 0;
+	while (i < size) {
+		(*dst_array)[i] = src_array[i];
+		i++;
+	}
+}
+
 void sort_stack_a_to_b(int **chunk_values, int **stack_a, int **stack_b, int *top_a, int *top_b) {
 	int middle_value;
 	int *new_chunk_values;
@@ -168,16 +172,16 @@ void sort_stack_a_to_b(int **chunk_values, int **stack_a, int **stack_b, int *to
 #endif
 		new_chunk_index++;
 		if (new_chunk_index % 10 == 0)
-			reallocate_array(&new_chunk_values, new_chunk_index);
+			reallocate_array(&new_chunk_values, new_chunk_index, 10);
 #if DEBUG
 		sleep(3);
 #endif
 	}
 	check_top_element_order(stack_a, top_a, 'a');
-	if ((*chunk_values)[0])
-		free(*chunk_values);
+	(*chunk_values) = reallocate_array(chunk_values, chunk_index, new_chunk_index);
 	reverse_elements_in_array(&new_chunk_values, new_chunk_index);
-	*chunk_values = new_chunk_values;
+	copy_elements(chunk_values, new_chunk_values, new_chunk_index);
+	free(new_chunk_values);
 }
 
 int check_for_single_and_double_chunk_size(int *chunk_size, int **stack_a, int **stack_b, int *top_a, int *top_b) {
@@ -227,8 +231,7 @@ void sort_stack_b_to_a(int **chunk_values, int **stack_a, int **stack_b, int *to
 	new_chunk_index = 0;
 	new_chunk_values = create_array(MIN_ARRAY_SIZE);
 	while (*top_b > 0) {
-		if (chunk_size == 0)
-			new_chunk_size = 0;
+		new_chunk_size = 0;
 		check_for_reverse_rotations(chunk_index, &rotations, &chunk_size, chunk_values, stack_b, top_b);
 		
 #if DEBUG
@@ -268,7 +271,7 @@ void sort_stack_b_to_a(int **chunk_values, int **stack_a, int **stack_b, int *to
 		new_chunk_values[new_chunk_index] = new_chunk_size;
 		new_chunk_index++;
 		if (new_chunk_index % 10 == 0)
-			new_chunk_values = reallocate_array(&new_chunk_values, new_chunk_index);
+			new_chunk_values = reallocate_array(&new_chunk_values, new_chunk_index, 10);
 		if (chunk_size == 0) {
 			chunk_index++;
 		}
@@ -276,9 +279,10 @@ void sort_stack_b_to_a(int **chunk_values, int **stack_a, int **stack_b, int *to
 		sleep(3);
 #endif
 	}
-	free(*chunk_values);
+	(*chunk_values) = reallocate_array(chunk_values, chunk_index, new_chunk_index);
 	reverse_elements_in_array(&new_chunk_values, new_chunk_index);
-	(*chunk_values) = new_chunk_values;
+	copy_elements(chunk_values, new_chunk_values, new_chunk_index);
+	free(new_chunk_values);
 }
 
 void sort_stack(int **stack_a, int **stack_b, int *top_a) {
@@ -292,10 +296,8 @@ void sort_stack(int **stack_a, int **stack_b, int *top_a) {
 		printf("******************************************** AAAAAAAAAAAAAAAAA ************************************************\n");
 #endif
 		sort_stack_a_to_b(&chunk_values, stack_a, stack_b, top_a, &top_b);
-		#if DEBUG
-		print_stack(*stack_a, *stack_b, *top_a, top_b);
-		#endif
 #if DEBUG
+		print_stack(*stack_a, *stack_b, *top_a, top_b);
 		for (int i = 0; i < 10; i++) {
 			printf("Chunk values for A = %d\n", chunk_values[i]);
 		}
@@ -308,6 +310,7 @@ void sort_stack(int **stack_a, int **stack_b, int *top_a) {
 		}
 #endif
 	}
+	free(chunk_values);
 }
 
 int main(int argc, char **argv) {

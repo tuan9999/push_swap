@@ -6,7 +6,7 @@
 /*   By: tuperera <tuperera@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/19 15:25:24 by tuperera      #+#    #+#                 */
-/*   Updated: 2021/04/13 15:33:51 by tuperera      ########   odam.nl         */
+/*   Updated: 2021/04/13 15:57:29 by tuperera      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void merge(int *arr, int left_index, int middle_index, int right_index)
 
     copy_remaining_elements(i, k, n1, &arr, temp_left_array);
     copy_remaining_elements(j, k, n2, &arr, temp_right_array);
+	free(temp_left_array);
+	free(temp_right_array);
 }
 
 void merge_sort(int *arr, int left_index, int right_index)
